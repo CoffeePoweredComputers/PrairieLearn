@@ -424,7 +424,7 @@ BEGIN
                 SELECT
                     11 AS event_order,
                     'View variant tab'::TEXT AS event_name,
-                    'black3'::TEXT AS event_color,
+                    'blue3'::TEXT AS event_color,
                     pvl.date,
                     u.user_id AS auth_user_id,
                     u.uid AS auth_user_uid,

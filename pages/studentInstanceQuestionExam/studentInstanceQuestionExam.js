@@ -109,6 +109,8 @@ router.post('/', function(req, res, next) {
             'page_visibility' :  req.body.__visibility ? req.body.__visibility  : null,
         };
 
+        console.log(req.body.__visibility);
+
         logPageView(req, res, params, (err) => {
             if (ERR(err, next)) return;
             res.send('Success');
