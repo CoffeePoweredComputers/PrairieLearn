@@ -100,7 +100,19 @@ router.post('/', function(req, res, next) {
             res.redirect(res.locals.urlPrefix + '/instance_question/' + res.locals.instance_question.id
                 + '/?variant_id=' + variant_id);
         });
-    } else {
+    } else if (req.body.__action == 'vis_change'){
+
+        const params = {
+            'variant_id' : req.body.__variant_id ? parseInt(req.body.__variant_id)  : null,
+            'page_visibility' :  req.body.__visibility ? req.body.__visibility  : null,
+        };
+
+        logPageView(req, res, params, (err) => {
+            if (ERR(err, next)) return;
+            res.send('Success');
+        });
+    } 
+    else {
         return next(error.make(400, 'unknown __action', {locals: res.locals, body: req.body}));
     }
 });
@@ -110,7 +122,7 @@ router.get('/', function(req, res, next) {
     const variant_id = null;
     question.getAndRenderVariant(variant_id, null, res.locals, function(err) {
         if (ERR(err, next)) return;
-        logPageView(req, res, (err) => {
+        logPageView(req, res, null, (err) => {
             if (ERR(err, next)) return;
             res.render(__filename.replace(/\.js$/, '.ejs'), res.locals);
         });

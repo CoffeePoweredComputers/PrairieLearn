@@ -22,6 +22,43 @@
           let fileName = $(this).val().replace(/\\/g, '/').replace(/.*\//, '');
           $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
       });
+
+      // tracks if the individual is viewing the page
+      $(window).ready( () => {
+          $(document).on("visibilitychange", () => {
+                      console.log("VISIBILITY CHANGE");
+                      $.post("<%= urlPrefix %>/instance_question/<%= instance_question_info.id%>/", {
+                                  __action : "vis_change",
+                                  __variant_id : "<%= variant.id%>",
+                                  __csrf_token : "<%= __csrf_token%>",
+                                  __visibility : document.visibilityState
+                              })
+                          .done(function(data){
+                                      console.log('I did things!');
+                                  })
+                          .fail(function(){
+                                      console.log('I didn\'t do things...');
+                                  })
+                  });
+
+          $(document).on("beforeunload", () => {
+                      $.post("<%= urlPrefix %>/instance_question/<%= instance_question_info.id%>/", {
+                                  __action : "vis_change",
+                                  __variant_id : "<%= variant.id%>",
+                                  __csrf_token : "<%= __csrf_token%>",
+                                  __visibility : "closed" 
+                              })
+                          .done(function(data){
+                                      console.log('I did things!');
+                                  })
+                          .fail(function(){
+                                      console.log('I didn\'t do things...');
+                                  })
+                  });
+          });
+    </script>
+
+    <script>
     </script>
 
     <%- include('../partials/navbar', {navPage: ''}); %>

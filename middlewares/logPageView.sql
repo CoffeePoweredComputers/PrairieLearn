@@ -2,20 +2,22 @@
 WITH log_result AS (
     INSERT INTO page_view_logs
         (user_id, authn_user_id, course_instance_id, assessment_id,
-        assessment_instance_id, question_id, variant_id, page_type, path,
-        panel_render_count, panel_render_cache_hit_count)
+        assessment_instance_id, question_id, variant_id, page_type, page_visibility,
+        path, panel_render_count, panel_render_cache_hit_count)
     VALUES
         ($user_id, $authn_user_id, $course_instance_id, $assessment_id,
-        $assessment_instance_id, $question_id, $variant_id, $page_type, $path,
-        $panel_render_count, $panel_render_cache_hit_count)
+        $assessment_instance_id, $question_id, $variant_id, $page_type, $page_visibility,
+        $path, $panel_render_count, $panel_render_cache_hit_count)
     RETURNING id
 ), current_page_result AS (
     INSERT INTO current_pages
         (user_id, authn_user_id, course_instance_id, assessment_id,
-        assessment_instance_id, question_id, variant_id, page_type, path)
+        assessment_instance_id, question_id, variant_id, page_type, 
+        page_visibility, path)
     VALUES
         ($user_id, $authn_user_id, $course_instance_id, $assessment_id,
-        $assessment_instance_id, $question_id, $variant_id, $page_type, $path)
+        $assessment_instance_id, $question_id, $variant_id, $page_type, 
+        $page_visibility, $path)
     ON CONFLICT (user_id)
     DO UPDATE
     SET
@@ -27,6 +29,7 @@ WITH log_result AS (
         assessment_instance_id = EXCLUDED.assessment_instance_id,
         question_id = EXCLUDED.question_id,
         variant_id = EXCLUDED.variant_id,
+        page_visibility = EXCLUDED.page_visibility,
         page_type = EXCLUDED.page_type,
         path = EXCLUDED.path
 )

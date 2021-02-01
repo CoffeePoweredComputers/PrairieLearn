@@ -286,6 +286,37 @@ BEGIN
                 WHERE
                     asl.assessment_instance_id = ai_id
             )
+            /*
+            UNION
+            (
+                SELECT
+                    8 AS event_order,
+                    'View Question Page'::TEXT AS event_name,
+                    'green4'::TEXT AS event_color,
+                    pvl.date,
+                    u.user_id AS auth_user_id,
+                    u.uid AS auth_user_uid,
+                    q.qid AS qid,
+                    q.id AS question_id,
+                    iq.id AS instance_question_id,
+                    v.id AS variant_id,
+                    v.number AS variant_number,
+                    NULL::INTEGER AS submission_id,
+                    NULL::JSONB AS data
+                FROM
+                    page_view_logs AS pvl
+                    JOIN variants AS v ON (v.id = pvl.variant_id)
+                    JOIN instance_questions AS iq ON (iq.id = v.instance_question_id)
+                    JOIN questions AS q ON (q.id = pvl.question_id)
+                    JOIN users AS u ON (u.user_id = pvl.authn_user_id)
+                    JOIN assessment_instances AS ai ON (ai.id = pvl.assessment_instance_id)
+                WHERE
+                    pvl.assessment_instance_id = ai_id
+                    AND pvl.page_type = 'studentInstanceQuestion'
+                    AND pvl.authn_user_id = ai.user_id
+                    AND pvl.page_visibility IS NULL
+            )
+            */
             UNION
             (
                 SELECT
@@ -313,6 +344,7 @@ BEGIN
                     pvl.assessment_instance_id = ai_id
                     AND pvl.page_type = 'studentInstanceQuestion'
                     AND pvl.authn_user_id = ai.user_id
+                    AND pvl.page_visibility IS NULL
             )
             UNION
             (
@@ -338,6 +370,93 @@ BEGIN
                     pvl.assessment_instance_id = ai_id
                     AND pvl.page_type = 'studentAssessmentInstance'
                     AND pvl.authn_user_id = ai.user_id
+            )
+            UNION
+            (
+                SELECT
+                    10 AS event_order,
+                    'Hide variant tab'::TEXT AS event_name,
+                    'red3'::TEXT AS event_color,
+                    pvl.date,
+                    u.user_id AS auth_user_id,
+                    u.uid AS auth_user_uid,
+                    q.qid AS qid,
+                    q.id AS question_id,
+                    iq.id AS instance_question_id,
+                    v.id AS variant_id,
+                    v.number AS variant_number,
+                    NULL::INTEGER AS submission_id,
+                    NULL::JSONB AS data
+                FROM
+                    page_view_logs AS pvl
+                    JOIN variants AS v ON (v.id = pvl.variant_id)
+                    JOIN instance_questions AS iq ON (iq.id = v.instance_question_id)
+                    JOIN questions AS q ON (q.id = pvl.question_id)
+                    JOIN users AS u ON (u.user_id = pvl.authn_user_id)
+                    JOIN assessment_instances AS ai ON (ai.id = pvl.assessment_instance_id)
+                WHERE
+                    pvl.assessment_instance_id = ai_id
+                    AND pvl.page_type = 'studentInstanceQuestion'
+                    AND pvl.authn_user_id = ai.user_id
+                    AND pvl.page_visibility = 'hidden' 
+            )
+            UNION
+            (
+                SELECT
+                    11 AS event_order,
+                    'View variant tab'::TEXT AS event_name,
+                    'black3'::TEXT AS event_color,
+                    pvl.date,
+                    u.user_id AS auth_user_id,
+                    u.uid AS auth_user_uid,
+                    q.qid AS qid,
+                    q.id AS question_id,
+                    iq.id AS instance_question_id,
+                    v.id AS variant_id,
+                    v.number AS variant_number,
+                    NULL::INTEGER AS submission_id,
+                    NULL::JSONB AS data
+                FROM
+                    page_view_logs AS pvl
+                    JOIN variants AS v ON (v.id = pvl.variant_id)
+                    JOIN instance_questions AS iq ON (iq.id = v.instance_question_id)
+                    JOIN questions AS q ON (q.id = pvl.question_id)
+                    JOIN users AS u ON (u.user_id = pvl.authn_user_id)
+                    JOIN assessment_instances AS ai ON (ai.id = pvl.assessment_instance_id)
+                WHERE
+                    pvl.assessment_instance_id = ai_id
+                    AND pvl.page_type = 'studentInstanceQuestion'
+                    AND pvl.authn_user_id = ai.user_id
+                    AND pvl.page_visibility = 'visible' 
+            )
+            UNION
+            (
+                SELECT
+                    12 AS event_order,
+                    'Unload variant tab'::TEXT AS event_name,
+                    'gray3'::TEXT AS event_color,
+                    pvl.date,
+                    u.user_id AS auth_user_id,
+                    u.uid AS auth_user_uid,
+                    q.qid AS qid,
+                    q.id AS question_id,
+                    iq.id AS instance_question_id,
+                    v.id AS variant_id,
+                    v.number AS variant_number,
+                    NULL::INTEGER AS submission_id,
+                    NULL::JSONB AS data
+                FROM
+                    page_view_logs AS pvl
+                    JOIN variants AS v ON (v.id = pvl.variant_id)
+                    JOIN instance_questions AS iq ON (iq.id = v.instance_question_id)
+                    JOIN questions AS q ON (q.id = pvl.question_id)
+                    JOIN users AS u ON (u.user_id = pvl.authn_user_id)
+                    JOIN assessment_instances AS ai ON (ai.id = pvl.assessment_instance_id)
+                WHERE
+                    pvl.assessment_instance_id = ai_id
+                    AND pvl.page_type = 'studentInstanceQuestion'
+                    AND pvl.authn_user_id = ai.user_id
+                    AND pvl.page_visibility = 'closed' 
             )
             ORDER BY date, event_order, question_id
         ),
