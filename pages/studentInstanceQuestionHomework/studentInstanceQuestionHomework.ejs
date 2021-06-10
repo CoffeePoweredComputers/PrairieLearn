@@ -23,13 +23,13 @@
           $(this).parent('.custom-file').find('.custom-file-label').text(fileName);
       });
       // tracks if the individual is viewing the page 
-	  $(window).ready( () => {
-          $(document).on("visibilitychange", () => {
-              $.post("/pageviewchange", {state: $(document).visibilityState} () => {
-                 console.log("page viewed");
-             })
-          });
-      });
+	  //$(window).ready( () => {
+      //    $(document).on("visibilitychange", () => {
+      //        $.post("/pageviewchange", {state: $(document).visibilityState} () => {
+      //           console.log("page viewed");
+      //       })
+      //    });
+      //});
     </script>
 
     <%- include('../partials/navbar', {navPage: ''}); %>

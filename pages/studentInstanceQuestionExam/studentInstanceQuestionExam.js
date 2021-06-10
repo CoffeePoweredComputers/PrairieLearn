@@ -113,7 +113,7 @@ router.post('/', function(req, res, next) {
 
         logPageView(req, res, params, (err) => {
             if (ERR(err, next)) return;
-            res.send('Success');
+            res.status(200).send('Success');
         });
     } 
     else {
