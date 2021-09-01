@@ -22,4 +22,4 @@ ipython==7.21.0
 nbformat==5.1.2
 nbconvert==6.0.7
 tensorflow==2.4.1
-automata-lib==4.0.0.post1
+automata-lib==5.0.0
