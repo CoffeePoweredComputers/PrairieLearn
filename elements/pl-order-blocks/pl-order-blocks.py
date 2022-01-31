@@ -13,6 +13,7 @@ PL_ANSWER_CORRECT_DEFAULT = True
 PL_ANSWER_INDENT_DEFAULT = -1
 INDENTION_DEFAULT = False
 MAX_INDENTION_DEFAULT = 4
+COLOR_ERROR_REPORTING = False
 SOURCE_BLOCKS_ORDER_DEFAULT = 'random'
 GRADING_METHOD_DEFAULT = 'ordered'
 FEEDBACK_DEFAULT = 'none'
@@ -51,7 +52,8 @@ def prepare(element_html, data):
                         'solution-placement', 'max-incorrect',
                         'min-incorrect', 'weight',
                         'inline', 'max-indent',
-                        'feedback', 'partial-credit']
+                        'feedback', 'partial-credit',
+                        'rank-color-errors']
 
     pl.check_attribs(element, required_attribs=required_attribs, optional_attribs=optional_attribs)
 
@@ -176,6 +178,30 @@ def prepare(element_html, data):
 
 
 def render(element_html, data):
+
+    first_error = True
+
+    def get_color(i, answer_name):
+        nonlocal first_error 
+        
+        if i >= len(data['correct_answers'][answer_name]):
+            return "grey"
+
+        correct = data['correct_answers'][answer_name][i]
+        student = data['submitted_answers'][answer_name][i]
+
+
+        if (correct["inner_html"] == student["inner_html"]) and (correct["indent"] == student["indent"]) and first_error:
+            return "green"
+        elif (correct["inner_html"] == student["inner_html"]) and (correct["indent"] != student["indent"]) and first_error:
+            first_error = False
+            return "yellow"
+        elif first_error:
+            first_error = False
+            return "red"
+        else:
+            return "grey"
+
     element = lxml.html.fragment_fromstring(element_html)
     answer_name = pl.get_string_attrib(element, 'answers-name')
 
@@ -201,6 +227,7 @@ def render(element_html, data):
             submission_indent = option.get('indent', None)
             if submission_indent is not None:
                 submission_indent = (int(submission_indent) * TAB_SIZE_PX) + INDENT_OFFSET
+
             temp = {'inner_html': option['inner_html'], 'indent': submission_indent, 'uuid': option['uuid']}
             student_submission_dict_list.append(dict(temp))
 
@@ -246,18 +273,21 @@ def render(element_html, data):
             return ''  # external grader is responsible for displaying results screen
 
         student_submission = ''
+        color_output = pl.get_boolean_attrib(element, 'rank-color-errors', COLOR_ERROR_REPORTING)
         score = None
         feedback = None
         if answer_name in data['submitted_answers']:
             student_submission = [{
                 'inner_html': attempt['inner_html'],
-                'indent': ((attempt['indent'] or 0) * TAB_SIZE_PX) + INDENT_OFFSET
-            } for attempt in data['submitted_answers'][answer_name]]
-
+                'indent': ((attempt['indent'] or 0) * TAB_SIZE_PX) + INDENT_OFFSET,
+                'color': get_color(i, answer_name) if color_output else "#F5F5F5"
+            } for i, attempt in enumerate(data['submitted_answers'][answer_name])]
+        first_error = True # reset var for next pass
+        
         if answer_name in data['partial_scores']:
             score = data['partial_scores'][answer_name]['score']
             feedback = data['partial_scores'][answer_name]['feedback']
-
+        
         html_params = {
             'submission': True,
             'parse-error': data['format_errors'].get(answer_name, None),
