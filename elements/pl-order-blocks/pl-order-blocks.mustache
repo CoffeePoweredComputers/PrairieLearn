@@ -88,5 +88,16 @@ $(function() {
             <li class="list-group-item" style="margin-left: {{indent}}px">{{{inner_html}}}</li>
         {{/question_solution}}
         </ul>
+
+        {{#has_distractors}}
+        <ul class="list-group">
+        <li class="list-group-item list-group-item-danger"><strong>Distractors:</strong></li>
+        </ul>
+        <ul class="list-group answer_table" style="list-style-type:none;">
+        {{#distractor_feedback}}
+            <li> <div class="list-group-item">{{{inner_html}}}</div> <div style="margin: 10px;"> {{distractor_feedback}} </div> </li>
+        {{/distractor_feedback}}
+        </ul>
+        {{/has_distractors}}
     </div>
 {{/true_answer}}

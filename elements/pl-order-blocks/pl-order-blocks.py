@@ -11,6 +11,7 @@ from dag_checker import grade_dag, lcs_partial_credit
 
 PL_ANSWER_CORRECT_DEFAULT = True
 PL_ANSWER_INDENT_DEFAULT = -1
+DISPLAY_DISTRACTORS_DEFAULT = False
 INDENTION_DEFAULT = False
 MAX_INDENTION_DEFAULT = 4
 SOURCE_BLOCKS_ORDER_DEFAULT = 'random'
@@ -32,7 +33,9 @@ FIRST_WRONG_FEEDBACK = {
         <ul><li> This block is not a part of the correct solution </li>
         <li>This block needs to come after a block that did not appear before it </li>""",
     'indentation': r"""<li>This line is indented incorrectly </li>""",
-    'block-group': r"""<li> You have attempted to start a new section of the answer without finishing the previous section </li>"""
+    'block-group': r"""<li> You have attempted to start a new section of the answer without finishing the previous section </li>""",
+    'distractor-feedback': r"""Your answer is incorrect starting at <span style="color:red;">block number {}</span> given
+                                the block at that location is a distractor and not apart of the solution. <strong> {} </strong> {}"""
 }
 
 
@@ -58,7 +61,8 @@ def prepare(element_html, data):
                         'solution-placement', 'max-incorrect',
                         'min-incorrect', 'weight',
                         'inline', 'max-indent',
-                        'feedback', 'partial-credit']
+                        'feedback', 'partial-credit',
+                        'display-distractor-feedback']
 
     pl.check_attribs(element, required_attribs=required_attribs, optional_attribs=optional_attribs)
 
@@ -92,9 +96,9 @@ def prepare(element_html, data):
         if grading_method == 'external':
             pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct'])
         elif grading_method == 'unordered':
-            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'indent'])
+            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'indent', 'distractor_feedback'])
         elif grading_method in ['ranking', 'ordered']:
-            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'ranking', 'indent'])
+            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'ranking', 'indent', 'distractor_feedback'])
         elif grading_method == 'dag':
             pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'tag', 'depends', 'comment', 'indent'])
 
@@ -102,6 +106,7 @@ def prepare(element_html, data):
         answer_indent = pl.get_integer_attrib(html_tags, 'indent', None)
         inner_html = pl.inner_html(html_tags)
         ranking = pl.get_integer_attrib(html_tags, 'ranking', -1)
+        distractor_feedback = pl.get_string_attrib(html_tags, 'distractor_feedback', None)
 
         tag, depends = get_graph_info(html_tags)
         if grading_method == 'ranking':
@@ -110,13 +115,15 @@ def prepare(element_html, data):
         if check_indentation is False and answer_indent is not None:
             raise Exception('<pl-answer> should not specify indentation if indentation is disabled.')
 
+
         answer_data_dict = {'inner_html': inner_html,
                             'indent': answer_indent,
                             'ranking': ranking,
                             'index': index,
                             'tag': tag,          # set by HTML with DAG grader, set internally for ranking grader
                             'depends': depends,  # only used with DAG grader
-                            'group_info': group_info  # only used with DAG grader
+                            'group_info': group_info,  # only used with DAG grader
+                            'distractor_feedback': distractor_feedback 
                             }
         if is_correct:
             correct_answers.append(answer_data_dict)
@@ -193,7 +200,7 @@ def render(element_html, data):
         grading_method = pl.get_string_attrib(element, 'grading-method', GRADING_METHOD_DEFAULT)
 
         mcq_options = data['params'][answer_name]
-        mcq_options = filter_multiple_from_array(mcq_options, ['inner_html', 'uuid'])
+        mcq_options = filter_multiple_from_array(mcq_options, ['inner_html', 'uuid', 'distractor_feedback'])
 
         if answer_name in data['submitted_answers']:
             student_previous_submission = filter_multiple_from_array(data['submitted_answers'][answer_name], ['inner_html', 'uuid', 'indent'])
@@ -201,9 +208,10 @@ def render(element_html, data):
 
         for index, option in enumerate(student_previous_submission):
             submission_indent = option.get('indent', None)
+            distractor_feedback = option.get('distractor_feedback', None)
             if submission_indent is not None:
                 submission_indent = (int(submission_indent) * TAB_SIZE_PX) + INDENT_OFFSET
-            temp = {'inner_html': option['inner_html'], 'indent': submission_indent, 'uuid': option['uuid']}
+            temp = {'inner_html': option['inner_html'], 'indent': submission_indent, 'uuid': option['uuid'], 'distractor_feedback': distractor_feedback}
             student_submission_dict_list.append(dict(temp))
 
         dropzone_layout = pl.get_string_attrib(element, 'solution-placement', SOLUTION_PLACEMENT_DEFAULT)
@@ -304,6 +312,8 @@ def render(element_html, data):
         check_indentation = pl.get_boolean_attrib(element, 'indentation', INDENTION_DEFAULT)
         indentation_message = ', with correct indentation' if check_indentation is True else None
 
+        distractor_set_feedback = [item for item in data['params']['answers'] if item['distractor_feedback'] is not None]
+
         if answer_name in data['correct_answers']:
             question_solution = [{
                 'inner_html': solution['inner_html'],
@@ -314,7 +324,9 @@ def render(element_html, data):
                 'true_answer': True,
                 'question_solution': question_solution,
                 'grading_mode': grading_mode,
-                'indentation_message': indentation_message
+                'indentation_message': indentation_message,
+                'distractor_feedback': distractor_set_feedback,
+                'has_distractors': len(distractor_set_feedback) > 0
             }
             with open('pl-order-blocks.mustache', 'r', encoding='utf-8') as f:
                 html = chevron.render(f, html_params)
@@ -345,6 +357,7 @@ def parse(element_html, data):
             search = next((item for item in correct_answers if item['inner_html'] == answer['inner_html']), None)
             answer['ranking'] = search['ranking'] if search is not None else None
             answer['tag'] = search['tag'] if search is not None else None
+            #answer['distractor_feedback'] = search['distractor_feedback'] if search is not None else None
     elif grading_mode == 'dag':
         for answer in student_answer:
             search = next((item for item in correct_answers if item['inner_html'] == answer['inner_html']), None)
@@ -374,15 +387,17 @@ def parse(element_html, data):
 def grade(element_html, data):
     element = lxml.html.fragment_fromstring(element_html)
     answer_name = pl.get_string_attrib(element, 'answers-name')
-
     student_answer = data['submitted_answers'][answer_name]
     grading_mode = pl.get_string_attrib(element, 'grading-method', GRADING_METHOD_DEFAULT)
     check_indentation = pl.get_boolean_attrib(element, 'indentation', INDENTION_DEFAULT)
     feedback_type = pl.get_string_attrib(element, 'feedback', FEEDBACK_DEFAULT)
     answer_weight = pl.get_integer_attrib(element, 'weight', WEIGHT_DEFAULT)
     partial_credit_type = pl.get_string_attrib(element, 'partial-credit', 'lcs')
-
     true_answer_list = data['correct_answers'][answer_name]
+    display_distractor_feedback = pl.get_boolean_attrib(element, 'display-distractor-feedback', DISPLAY_DISTRACTORS_DEFAULT)
+    distractor_feedback = { item['inner_html']: item['distractor_feedback'] 
+                            for item in data['params']['answers'] 
+                            if item['distractor_feedback'] != ''}
 
     final_score = 0
     feedback = ''
@@ -456,6 +471,9 @@ def grade(element_html, data):
             elif feedback_type == 'first-wrong':
                 if first_wrong == -1:
                     feedback = FIRST_WRONG_FEEDBACK['incomplete']
+                elif display_distractor_feedback and student_answer[first_wrong]['tag'] is None:
+                    text = student_answer[first_wrong]['inner_html']
+                    feedback += FIRST_WRONG_FEEDBACK['distractor-feedback'].format(str(first_wrong + 1), text, distractor_feedback[text])
                 else:
                     feedback = FIRST_WRONG_FEEDBACK['wrong-at-block'].format(str(first_wrong + 1))
                     has_block_groups = group_belonging != {} and set(group_belonging.values()) != {None}
