@@ -312,7 +312,7 @@ def render(element_html, data):
         check_indentation = pl.get_boolean_attrib(element, 'indentation', INDENTION_DEFAULT)
         indentation_message = ', with correct indentation' if check_indentation is True else None
 
-        distractor_set_feedback = [item for item in data['params']['answers'] if item['distractor_feedback'] is not None]
+        all_distractors = [item for item in data['params']['answers'] if item['distractor_feedback'] is not None]
 
         if answer_name in data['correct_answers']:
             question_solution = [{
@@ -325,8 +325,8 @@ def render(element_html, data):
                 'question_solution': question_solution,
                 'grading_mode': grading_mode,
                 'indentation_message': indentation_message,
-                'distractor_feedback': distractor_set_feedback,
-                'has_distractors': len(distractor_set_feedback) > 0
+                'distractor_feedback': all_distractors,
+                'has_distractors': len(all_distractors_feedback) > 0
             }
             with open('pl-order-blocks.mustache', 'r', encoding='utf-8') as f:
                 html = chevron.render(f, html_params)
@@ -357,7 +357,6 @@ def parse(element_html, data):
             search = next((item for item in correct_answers if item['inner_html'] == answer['inner_html']), None)
             answer['ranking'] = search['ranking'] if search is not None else None
             answer['tag'] = search['tag'] if search is not None else None
-            #answer['distractor_feedback'] = search['distractor_feedback'] if search is not None else None
     elif grading_mode == 'dag':
         for answer in student_answer:
             search = next((item for item in correct_answers if item['inner_html'] == answer['inner_html']), None)
