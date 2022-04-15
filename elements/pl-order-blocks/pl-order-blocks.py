@@ -326,7 +326,7 @@ def render(element_html, data):
                 'grading_mode': grading_mode,
                 'indentation_message': indentation_message,
                 'distractor_feedback': all_distractors,
-                'has_distractors': len(all_distractors_feedback) > 0
+                'has_distractors': len(all_distractors) > 0
             }
             with open('pl-order-blocks.mustache', 'r', encoding='utf-8') as f:
                 html = chevron.render(f, html_params)
