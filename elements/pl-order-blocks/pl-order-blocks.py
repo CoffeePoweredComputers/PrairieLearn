@@ -312,7 +312,10 @@ def render(element_html, data):
         check_indentation = pl.get_boolean_attrib(element, 'indentation', INDENTION_DEFAULT)
         indentation_message = ', with correct indentation' if check_indentation is True else None
 
-        all_distractors = [item for item in data['params']['answers'] if item['distractor_feedback'] is not None]
+        if grading_mode in ['ranking', 'unordered']:
+            all_distractors = [item for item in data['params']['answers'] if item['distractor_feedback'] is not None]
+        else:
+            all_distractors = []
 
         if answer_name in data['correct_answers']:
             question_solution = [{
@@ -394,9 +397,11 @@ def grade(element_html, data):
     partial_credit_type = pl.get_string_attrib(element, 'partial-credit', 'lcs')
     true_answer_list = data['correct_answers'][answer_name]
     display_distractor_feedback = pl.get_boolean_attrib(element, 'display-distractor-feedback', DISPLAY_DISTRACTORS_DEFAULT)
-    distractor_feedback = { item['inner_html']: item['distractor_feedback'] 
-                            for item in data['params']['answers'] 
-                            if item['distractor_feedback'] != ''}
+
+    if display_distractor_feedback and (grading_mode in ['ranking', 'ordered', 'unordered']): 
+        distractor_feedback = { item['inner_html']: item['distractor_feedback'] 
+                                for item in data['params']['answers'] 
+                                if item['distractor_feedback'] != ''}
 
     final_score = 0
     feedback = ''
@@ -425,7 +430,6 @@ def grade(element_html, data):
         student_answer = [ans['inner_html'] for ans in student_answer]
         true_answer = [ans['inner_html'] for ans in true_answer_list]
         final_score = 1 if student_answer == true_answer else 0
-
     elif grading_mode in ['ranking', 'dag']:
         submission = [ans['tag'] for ans in student_answer]
         depends_graph = {}
