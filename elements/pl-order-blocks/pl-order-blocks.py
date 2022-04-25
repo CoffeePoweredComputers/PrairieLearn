@@ -96,18 +96,18 @@ def prepare(element_html, data):
         if grading_method == 'external':
             pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct'])
         elif grading_method == 'unordered':
-            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'indent', 'distractor_feedback'])
+            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'indent', 'distractor-feedback'])
         elif grading_method in ['ranking', 'ordered']:
-            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'ranking', 'indent', 'distractor_feedback'])
+            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'ranking', 'indent', 'distractor-feedback'])
         elif grading_method == 'dag':
-            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'tag', 'depends', 'comment', 'indent', 'distractor_feedback'])
+            pl.check_attribs(html_tags, required_attribs=[], optional_attribs=['correct', 'tag', 'depends', 'comment', 'indent', 'distractor-feedback'])
 
         is_correct = pl.get_boolean_attrib(html_tags, 'correct', PL_ANSWER_CORRECT_DEFAULT)
         answer_indent = pl.get_integer_attrib(html_tags, 'indent', None)
         inner_html = pl.inner_html(html_tags)
         ranking = pl.get_integer_attrib(html_tags, 'ranking', -1)
         display_distractor_feedback = pl.get_boolean_attrib(element, 'display-distractor-feedback', DISPLAY_DISTRACTORS_DEFAULT)
-        distractor_feedback = pl.get_string_attrib(html_tags, 'distractor_feedback', None)
+        distractor_feedback = pl.get_string_attrib(html_tags, 'distractor-feedback', None)
 
         if (not display_distractor_feedback) and (distractor_feedback is not None):
             raise Exception('display_distractor_feedback must be true for the distractor_feedback tag to be used in <pl-answer>' )
@@ -126,7 +126,7 @@ def prepare(element_html, data):
                             'tag': tag,          # set by HTML with DAG grader, set internally for ranking grader
                             'depends': depends,  # only used with DAG grader
                             'group_info': group_info,  # only used with DAG grader
-                            'distractor_feedback': distractor_feedback,
+                            'distractor-feedback': distractor_feedback,
                             'is_correct': is_correct
                             }
         if is_correct:
@@ -204,7 +204,7 @@ def render(element_html, data):
         grading_method = pl.get_string_attrib(element, 'grading-method', GRADING_METHOD_DEFAULT)
 
         mcq_options = data['params'][answer_name]
-        mcq_options = filter_multiple_from_array(mcq_options, ['inner_html', 'uuid', 'distractor_feedback'])
+        mcq_options = filter_multiple_from_array(mcq_options, ['inner_html', 'uuid', 'distractor-feedback'])
 
         if answer_name in data['submitted_answers']:
             student_previous_submission = filter_multiple_from_array(data['submitted_answers'][answer_name], ['inner_html', 'uuid', 'indent'])
@@ -212,10 +212,10 @@ def render(element_html, data):
 
         for index, option in enumerate(student_previous_submission):
             submission_indent = option.get('indent', None)
-            distractor_feedback = option.get('distractor_feedback', None)
+            distractor_feedback = option.get('distractor-feedback', None)
             if submission_indent is not None:
                 submission_indent = (int(submission_indent) * TAB_SIZE_PX) + INDENT_OFFSET
-            temp = {'inner_html': option['inner_html'], 'indent': submission_indent, 'uuid': option['uuid'], 'distractor_feedback': distractor_feedback}
+            temp = {'inner_html': option['inner_html'], 'indent': submission_indent, 'uuid': option['uuid'], 'distractor-feedback': distractor_feedback}
             student_submission_dict_list.append(dict(temp))
 
         dropzone_layout = pl.get_string_attrib(element, 'solution-placement', SOLUTION_PLACEMENT_DEFAULT)
@@ -320,7 +320,7 @@ def render(element_html, data):
         if display_distractor_feedback:
             all_distractors = [item for item in data['params'][answer_name] if not item['is_correct']]
             for distractor in all_distractors:
-                distractor['margin'] = '0px' if distractor['distractor_feedback'] is None else '10px'
+                distractor['margin'] = '0px' if distractor['distractor-feedback'] is None else '10px'
         else:
             all_distractors = []
 
@@ -335,8 +335,8 @@ def render(element_html, data):
                 'question_solution': question_solution,
                 'grading_mode': grading_mode,
                 'indentation_message': indentation_message,
-                'distractor_feedback': all_distractors,
-                'has_distractors': len(all_distractors) > 0
+                'distractor-feedback': all_distractors,
+                'has-distractors': len(all_distractors) > 0
             }
             with open('pl-order-blocks.mustache', 'r', encoding='utf-8') as f:
                 html = chevron.render(f, html_params)
@@ -406,7 +406,7 @@ def grade(element_html, data):
     true_answer_list = data['correct_answers'][answer_name]
     display_distractor_feedback = pl.get_boolean_attrib(element, 'display-distractor-feedback', DISPLAY_DISTRACTORS_DEFAULT)
 
-    distractor_feedback = { item['inner_html']: item['distractor_feedback'] 
+    distractor_feedback = { item['inner_html']: item['distractor-feedback'] 
                             for item in data['params'][answer_name] 
                             if not item['is_correct']}
 
