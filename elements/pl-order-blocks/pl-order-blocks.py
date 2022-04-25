@@ -85,7 +85,6 @@ def prepare(element_html, data):
        (grading_method in ['dag', 'ranking'] and feedback_type not in ['none', 'first-wrong']):
         raise Exception('feedback type "' + feedback_type + '" is not available with the "' + grading_method + '" grading-method.')
 
-
     correct_answers = []
     incorrect_answers = []
 
@@ -119,7 +118,6 @@ def prepare(element_html, data):
 
         if check_indentation is False and answer_indent is not None:
             raise Exception('<pl-answer> should not specify indentation if indentation is disabled.')
-
 
         answer_data_dict = {'inner_html': inner_html,
                             'indent': answer_indent,
@@ -399,6 +397,7 @@ def grade(element_html, data):
     element = lxml.html.fragment_fromstring(element_html)
     answer_name = pl.get_string_attrib(element, 'answers-name')
     student_answer = data['submitted_answers'][answer_name]
+
     grading_mode = pl.get_string_attrib(element, 'grading-method', GRADING_METHOD_DEFAULT)
     check_indentation = pl.get_boolean_attrib(element, 'indentation', INDENTION_DEFAULT)
     feedback_type = pl.get_string_attrib(element, 'feedback', FEEDBACK_DEFAULT)
