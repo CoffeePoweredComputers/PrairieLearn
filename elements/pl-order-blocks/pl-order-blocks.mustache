@@ -95,7 +95,7 @@ $(function() {
         </ul>
         <ul class="list-group answer_table" style="list-style-type:none;">
         {{#distractor_feedback}}
-            <li> <div class="list-group-item">{{{inner_html}}}</div> <div style="margin: 10px;"> {{distractor_feedback}} </div> </li>
+            <li> <div class="list-group-item">{{{inner_html}}}</div> <div style="margin: {{margin}}"> {{distractor_feedback}} </div> </li>
         {{/distractor_feedback}}
         </ul>
         {{/has_distractors}}
