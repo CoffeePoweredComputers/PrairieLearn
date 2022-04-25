@@ -110,7 +110,7 @@ def prepare(element_html, data):
         distractor_feedback = pl.get_string_attrib(html_tags, 'distractor-feedback', None)
 
         if (not display_distractor_feedback) and (distractor_feedback is not None):
-            raise Exception('display_distractor_feedback must be true for the distractor_feedback tag to be used in <pl-answer>' )
+            raise Exception('display_distractor_feedback must be true for the distractor_feedback tag to be used in <pl-answer>')
 
         tag, depends = get_graph_info(html_tags)
         if grading_method == 'ranking':
@@ -406,9 +406,9 @@ def grade(element_html, data):
     true_answer_list = data['correct_answers'][answer_name]
     display_distractor_feedback = pl.get_boolean_attrib(element, 'display-distractor-feedback', DISPLAY_DISTRACTORS_DEFAULT)
 
-    distractor_feedback = { item['inner_html']: item['distractor-feedback'] 
-                            for item in data['params'][answer_name] 
-                            if not item['is_correct']}
+    distractor_feedback = {item['inner_html']: item['distractor-feedback']
+                           for item in data['params'][answer_name]
+                           if not item['is_correct']}
 
     final_score = 0
     feedback = ''
