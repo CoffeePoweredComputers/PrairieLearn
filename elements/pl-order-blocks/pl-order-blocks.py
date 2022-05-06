@@ -39,7 +39,7 @@ FIRST_WRONG_FEEDBACK = {
 }
 
 
-def filter_multiple_from_array():
+def filter_multiple_from_array(data, keys):
     return [{key: item[key] for key in keys} for item in data]
 
 
@@ -82,7 +82,7 @@ def prepare(element_html, data):
         raise Exception('The grading-method attribute must be one of the following: ' + ', '.join(accepted_grading_method))
 
     if (grading_method not in ['dag', 'ranking'] and feedback_type != 'none') or \
-       (grading_method in ['dag', 'ranking'] and feedback_type not in ['none', 'first-wrong']):
+       (grading_method in ['dag', 'ranking'] and feedback_type not in ['none', 'first-wrong', 'first-wrong-verbose']):
         raise Exception('feedback type "' + feedback_type + '" is not available with the "' + grading_method + '" grading-method.')
 
     correct_answers = []
@@ -106,11 +106,11 @@ def prepare(element_html, data):
         answer_indent = pl.get_integer_attrib(html_tags, 'indent', None)
         inner_html = pl.inner_html(html_tags)
         ranking = pl.get_integer_attrib(html_tags, 'ranking', -1)
-        distractor_info = pl.get_boolean_attrib(element, 'distractor-info', DISTRACTOR_INFO_DEFAULT)
+        distractor_info = pl.get_string_attrib(element, 'distractor-info', DISTRACTOR_INFO_DEFAULT)
         distractor_feedback = pl.get_string_attrib(html_tags, 'distractor-feedback', None)
 
-        if (not display_distractor_feedback) and (distractor_feedback is not None):
-            raise Exception('display_distractor_feedback must be true for the distractor_feedback tag to be used in <pl-answer>')
+        if (distractor_info == 'none') and (distractor_feedback is not None):
+            raise Exception('distractor_info must be either \'show-distractors\' or \'show-feedback\' for the distractor_feedback tag to be used in <pl-answer>')
 
         tag, depends = get_graph_info(html_tags)
         if grading_method == 'ranking':
@@ -316,13 +316,20 @@ def render(element_html, data):
         check_indentation = pl.get_boolean_attrib(element, 'indentation', INDENTION_DEFAULT)
         indentation_message = ', with correct indentation' if check_indentation is True else None
 
-        distractor_info = pl.get_boolean_attrib(element, 'distractor-info', DISTRACTOR_INFO_DEFAULT)
+        distractor_info = pl.get_string_attrib(element, 'distractor-info', DISTRACTOR_INFO_DEFAULT)
         if distractor_info != 'none':
             all_distractors = [item for item in data['params'][answer_name] if not item['is_correct']]
             for distractor in all_distractors:
                 if (distractor['distractor-feedback'] is None) and (distractor_info == 'show-feedback'):
                     raise Exception('Feedback must be associated with each distractor to use the show-feedback option')
-                distractor['margin'] = '0px' if (distractor_info == 'show-distractor') else '10px'
+
+                if distractor_info == 'show-distractor' or distractor_info == 'none':
+                    distractor['margin'] = '0px'
+                elif distractor_info == 'show-feedback':
+                    distractor['margin'] = '10px'
+                else:
+                    raise Exception('The distractor info tag must be show-distractor, show-feedback or none')
+
         else:
             all_distractors = []
 
@@ -405,7 +412,6 @@ def grade(element_html, data):
     feedback_type = pl.get_string_attrib(element, 'feedback', FEEDBACK_DEFAULT)
     answer_weight = pl.get_integer_attrib(element, 'weight', WEIGHT_DEFAULT)
     partial_credit_type = pl.get_string_attrib(element, 'partial-credit', 'lcs')
-    display_distractor_feedback = pl.get_boolean_attrib(element, 'display-distractor-feedback', DISPLAY_DISTRACTORS_DEFAULT)
 
     true_answer_list = data['correct_answers'][answer_name]
 
@@ -484,7 +490,7 @@ def grade(element_html, data):
             elif feedback_type.startswith('first-wrong'):
                 if first_wrong == -1:
                     feedback = FIRST_WRONG_FEEDBACK['incomplete']
-                elif feedback_type.endswith('-verbose') and student_answer[first_wrong]['is_correct'] is False:
+                elif feedback_type.endswith('-verbose') and student_answer[first_wrong]['inner_html'] in distractor_feedback:
                     text = student_answer[first_wrong]['inner_html']
                     feedback += FIRST_WRONG_FEEDBACK['distractor-feedback'].format(str(first_wrong + 1), text, distractor_feedback[text] or '')
                 else:
@@ -495,7 +501,6 @@ def grade(element_html, data):
                     if has_block_groups:
                         feedback += FIRST_WRONG_FEEDBACK['block-group']
                     feedback += '</ul>'
-
 
     data['partial_scores'][answer_name] = {'score': round(final_score, 2), 'feedback': feedback, 'weight': answer_weight, 'first_wrong': first_wrong}
 
