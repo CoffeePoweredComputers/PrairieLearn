@@ -110,7 +110,7 @@ def prepare(element_html, data):
         distractor_feedback = pl.get_string_attrib(html_tags, 'distractor-feedback', None)
 
         if (distractor_info == 'none') and (distractor_feedback is not None):
-            raise Exception('distractor_info must be either \'show-distractors\' or \'show-feedback\' for the distractor_feedback tag to be used in <pl-answer>')
+            raise Exception("distractor_info must be either 'show-distractors' or 'show-feedback' for the distractor_feedback tag to be used in <pl-answer>")
 
         tag, depends = get_graph_info(html_tags)
         if grading_method == 'ranking':
@@ -323,12 +323,12 @@ def render(element_html, data):
                 if (distractor['distractor-feedback'] is None) and (distractor_info == 'show-feedback'):
                     raise Exception('Feedback must be associated with each distractor to use the show-feedback option')
 
-                if distractor_info == 'show-distractor' or distractor_info == 'none':
+                if distractor_info == 'show-distractors' or distractor_info == 'none':
                     distractor['margin'] = '0px'
                 elif distractor_info == 'show-feedback':
                     distractor['margin'] = '10px'
                 else:
-                    raise Exception('The distractor info tag must be show-distractor, show-feedback or none')
+                    raise Exception('The distractor info tag must be show-distractors, show-feedback or none')
 
         else:
             all_distractors = []
@@ -345,7 +345,8 @@ def render(element_html, data):
                 'grading_mode': grading_mode,
                 'indentation_message': indentation_message,
                 'distractor-feedback': all_distractors,
-                'has-distractors': len(all_distractors) > 0
+                'show-distractors': distractor_info in ['show-feedback', 'show-distractors'],
+                'show-feedback': distractor_info == 'show-feedback'
             }
             with open('pl-order-blocks.mustache', 'r', encoding='utf-8') as f:
                 html = chevron.render(f, html_params)
