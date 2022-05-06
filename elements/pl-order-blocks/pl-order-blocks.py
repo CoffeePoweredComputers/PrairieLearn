@@ -112,6 +112,10 @@ def prepare(element_html, data):
         if (distractor_info == 'none') and (distractor_feedback is not None):
             raise Exception("distractor_info must be either 'show-distractors' or 'show-feedback' for the distractor_feedback tag to be used in <pl-answer>")
 
+        if (distractor_info == 'show-feedback') and (distractor_feedback is None) and (not is_correct):
+            raise Exception("All distractors must have 'distractor-feedback' tag populated if 'show-feedback' option is used.")
+
+
         tag, depends = get_graph_info(html_tags)
         if grading_method == 'ranking':
             tag = str(index)
