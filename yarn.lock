@@ -1071,7 +1071,16 @@
   dependencies:
     "@opentelemetry/core" "1.0.1"
 
-"@opentelemetry/resource-detector-aws@^1.0.3", "@opentelemetry/resource-detector-aws@~1.0.0":
+"@opentelemetry/resource-detector-aws@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@opentelemetry/resource-detector-aws/-/resource-detector-aws-1.1.0.tgz#7c2fa9a0dd0e4796239d7341a8b59fbfdea64c93"
+  integrity sha512-YoGB47aSkZ3ULUZpqlt27SU31bqeUuvzgikk/O0U7w9yWppb7WmOwW9/yMQ9pavxgwFzNiNfjM5xYpDK7bL3Tg==
+  dependencies:
+    "@opentelemetry/core" "^1.0.0"
+    "@opentelemetry/resources" "^1.0.0"
+    "@opentelemetry/semantic-conventions" "^1.0.0"
+
+"@opentelemetry/resource-detector-aws@~1.0.0":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@opentelemetry/resource-detector-aws/-/resource-detector-aws-1.0.3.tgz#adaa574bf7203694f35e60985f2e2c4650cabf56"
   integrity sha512-0bhy8L1JZfqGqMjaPu1tV3rBsmtN42+wycJYhxMBbaB4E0ZDshDLnBHn3AeLMPLtFUqiyyn48JluuBfD7KPkhA==
