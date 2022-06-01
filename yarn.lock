@@ -8543,10 +8543,10 @@ pupa@^2.1.1:
   dependencies:
     escape-goat "^2.0.0"
 
-pyright@^1.1.235:
-  version "1.1.235"
-  resolved "https://registry.yarnpkg.com/pyright/-/pyright-1.1.235.tgz#6a360d85c563b06b8478e7e63023f35cbd118c4d"
-  integrity sha512-eW40mxHo8WE7WHoBzFfyrH0lQ9nP5rTM5XKvkBgaYjhVafh4MmQeaEm8LmYGN2vUq2//YFLVprvA+U6u+v9i3g==
+pyright@^1.1.251:
+  version "1.1.251"
+  resolved "https://registry.yarnpkg.com/pyright/-/pyright-1.1.251.tgz#e4e2104b99bb8ce803e2c36281cbc4da3a26e551"
+  integrity sha512-0HttecsAvvpiWNZET0Y6rVZZDjr3omyyJ60Ghto71nlqWa6OEIsd1EGqcCDlebBXSU5OGKL0G9z78xRsaZWntg==
 
 qrcode-svg@^1.1.0:
   version "1.1.0"
