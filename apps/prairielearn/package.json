@@ -135,7 +135,7 @@
     "rehype-stringify": "^8.0.0",
     "remark-gfm": "^1.0.0",
     "remark-math": "^4.0.0",
-    "remark-parse": "^9.0.0",
+    "remark-parse": "^10.0.2",
     "remark-rehype": "^8.1.0",
     "requirejs": "^2.3.6",
     "search-string": "^3.1.0",
