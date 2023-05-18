@@ -82,7 +82,7 @@
     "express-session": "^1.17.3",
     "fabric": "^4.6.0",
     "fast-glob": "^3.2.12",
-    "file-type": "^16.5.4",
+    "file-type": "^18.4.0",
     "filesize": "^10.0.7",
     "folder-hash": "^4.0.4",
     "fs-extra": "^11.1.1",
