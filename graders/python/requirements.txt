@@ -16,7 +16,7 @@ pandas==1.5.3
 Pillow==9.5.0
 PuLP==2.7.0
 Pygments==2.15.1
-pygraphviz==1.6
+pygraphviz==1.11
 requests==2.30
 scikit-image==0.20.0
 scikit-learn==1.2.2
