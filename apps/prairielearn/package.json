@@ -162,7 +162,7 @@
     "winston": "^3.10.0",
     "xml2js": "^0.6.2",
     "yargs-parser": "^21.1.1",
-    "zod": "^3.21.4"
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@prairielearn/tsconfig": "workspace:^",
