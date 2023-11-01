@@ -193,7 +193,7 @@
     "@types/node": "^18.17.12",
     "@types/node-fetch": "^2.6.4",
     "@types/object-hash": "^3.0.3",
-    "@types/passport": "^1.0.12",
+    "@types/passport": "^1.0.14",
     "@types/passport-azure-ad": "^4.3.1",
     "@types/pem": "^1.14.0",
     "@types/pg": "^8.10.2",
