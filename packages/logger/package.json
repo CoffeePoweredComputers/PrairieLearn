@@ -17,7 +17,7 @@
     "typescript": "^5.2.2"
   },
   "dependencies": {
-    "logform": "^2.5.1",
+    "logform": "^2.6.0",
     "winston": "^3.10.0",
     "zod": "^3.22.2"
   }
