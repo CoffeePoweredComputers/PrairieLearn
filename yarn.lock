@@ -2879,7 +2879,7 @@ __metadata:
     highlight.js: ^11.8.0
     htmx.org: ^1.9.5
     http-proxy-middleware: ^2.0.6
-    http-status: ^1.6.2
+    http-status: ^1.7.3
     isbinaryfile: ^5.0.0
     jju: ^1.4.0
     jose: ^4.14.4
@@ -9820,10 +9820,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-status@npm:^1.6.2":
-  version: 1.6.2
-  resolution: "http-status@npm:1.6.2"
-  checksum: 340495d01c94df580db2cab1a25576b2ff5d5792a5829a9fe4af9e73cfda2187332feb3df120a06e1bea5dc9579d08127125e7e7fc886d7d5289c156268d2ed8
+"http-status@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "http-status@npm:1.7.3"
+  checksum: 3e61c201990b23623d45f9c4ab1b73995b75efc16f8749bbdda87347c1186d93cc933a7527e813fdb66eb4b50e8a409f7bc6d995c715f71adc5b27f3e2cef814
   languageName: node
   linkType: hard
 
