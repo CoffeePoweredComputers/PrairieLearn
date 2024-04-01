@@ -19,7 +19,7 @@ pandas-stubs==2.0.3.230814
 pandas==2.0.3
 Pint==0.22
 psutil==5.9.5
-PuLP==2.7.0
+PuLP==2.8.0
 pycryptodome==3.18.0
 Pygments==2.16.1
 pygments-ansi-color==0.3.0
