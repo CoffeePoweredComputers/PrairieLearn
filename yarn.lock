@@ -2455,7 +2455,7 @@ __metadata:
     node-fetch: ^2.7.0
     pretty-bytes: ^5.6.0
     tmp-promise: ^3.0.3
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   bin:
     compiled-assets: dist/cli.js
@@ -2478,7 +2478,7 @@ __metadata:
     lodash: ^4.17.21
     mocha: ^10.2.0
     tmp-promise: ^3.0.3
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2495,7 +2495,7 @@ __metadata:
     mocha: ^10.2.0
     multipipe: ^4.0.0
     stream-transform: ^3.2.8
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2511,7 +2511,7 @@ __metadata:
     "@types/node": ^18.17.12
     date-fns: ^2.30.0
     mocha: ^10.2.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2525,7 +2525,7 @@ __metadata:
     "@types/node": ^18.17.12
     lodash: ^4.17.21
     mocha: ^10.2.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2539,7 +2539,7 @@ __metadata:
     "@types/express-session": ^1.17.7
     "@types/node": ^18.17.12
     mocha: ^10.2.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2576,7 +2576,7 @@ __metadata:
     s3-streamlogger: ^1.9.0
     sinon: ^15.2.0
     tmp: ^0.2.1
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
     typescript-cp: ^0.1.9
     winston: ^3.10.0
@@ -2594,7 +2594,7 @@ __metadata:
     "@types/node": ^18.17.12
     ejs: ^3.1.9
     mocha: ^10.2.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2606,7 +2606,7 @@ __metadata:
     "@prairielearn/tsconfig": "workspace:^"
     "@types/node": ^18.17.12
     mocha: ^10.2.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2639,7 +2639,7 @@ __metadata:
     fs-extra: ^11.1.1
     mocha: ^10.2.0
     serialize-error: ^8.1.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
     typescript-cp: ^0.1.9
     zod: ^3.22.2
@@ -2688,7 +2688,7 @@ __metadata:
     "@types/node": ^18.17.12
     chai: ^4.3.8
     mocha: ^10.2.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2703,7 +2703,7 @@ __metadata:
     "@types/node": ^18.17.12
     chai: ^4.3.8
     mocha: ^10.2.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2749,7 +2749,7 @@ __metadata:
     pg: ^8.11.3
     pg-cursor: ^2.10.3
     pg-pool: ^3.6.1
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
     zod: ^3.22.2
   languageName: unknown
@@ -2947,7 +2947,7 @@ __metadata:
     three: ^0.154.0
     tmp: ^0.2.1
     tmp-promise: ^3.0.3
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
     typescript-cp: ^0.1.9
     tzientist: ^3.1.0
@@ -2981,7 +2981,7 @@ __metadata:
     "@prairielearn/tsconfig": "workspace:^"
     "@types/node": ^18.17.12
     mocha: ^10.2.0
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -2994,7 +2994,7 @@ __metadata:
     "@sentry/node": ^7.65.0
     "@types/node": ^18.17.12
     execa: ^5.1.1
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
   languageName: unknown
   linkType: soft
@@ -3050,7 +3050,7 @@ __metadata:
     redis: ^4.6.8
     socket.io: ^4.7.2
     socket.io-adapter: ^2.5.2
-    ts-node: ^10.9.1
+    ts-node: ^10.9.2
     typescript: ^5.2.2
     typescript-cp: ^0.1.9
     uuid: ^9.0.0
@@ -15693,9 +15693,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.9.1":
-  version: 10.9.1
-  resolution: "ts-node@npm:10.9.1"
+"ts-node@npm:^10.9.2":
+  version: 10.9.2
+  resolution: "ts-node@npm:10.9.2"
   dependencies:
     "@cspotcode/source-map-support": ^0.8.0
     "@tsconfig/node10": ^1.0.7
@@ -15727,7 +15727,7 @@ __metadata:
     ts-node-script: dist/bin-script.js
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
-  checksum: 090adff1302ab20bd3486e6b4799e90f97726ed39e02b39e566f8ab674fd5bd5f727f43615debbfc580d33c6d9d1c6b1b3ce7d8e3cca3e20530a145ffa232c35
+  checksum: fde256c9073969e234526e2cfead42591b9a2aec5222bac154b0de2fa9e4ceb30efcd717ee8bc785a56f3a119bdd5aa27b333d9dbec94ed254bd26f8944c67ac
   languageName: node
   linkType: hard
 

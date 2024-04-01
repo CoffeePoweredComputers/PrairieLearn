@@ -16,7 +16,7 @@
     "@prairielearn/tsconfig": "workspace:^",
     "@types/node": "^18.17.12",
     "mocha": "^10.2.0",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5.2.2"
   }
 }
