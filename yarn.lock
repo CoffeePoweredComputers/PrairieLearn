@@ -2829,7 +2829,7 @@ __metadata:
     ansi_up: ^5.2.1
     archiver: ^5.3.2
     async: ^3.2.4
-    async-mutex: ^0.4.0
+    async-mutex: ^0.5.0
     async-stacktrace: ^0.0.2
     axe-core: ^4.7.2
     backbone: ^1.5.0
@@ -3036,7 +3036,7 @@ __metadata:
     "@types/node": ^18.17.12
     archiver: ^5.3.2
     async: ^3.2.4
-    async-mutex: ^0.4.0
+    async-mutex: ^0.5.0
     async-stacktrace: ^0.0.2
     body-parser: ^1.20.2
     chai: ^4.3.8
@@ -5297,12 +5297,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"async-mutex@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "async-mutex@npm:0.4.0"
+"async-mutex@npm:^0.5.0":
+  version: 0.5.0
+  resolution: "async-mutex@npm:0.5.0"
   dependencies:
     tslib: ^2.4.0
-  checksum: 813a71728b35a4fbfd64dba719f04726d9133c67b577fcd951b7028c4a675a13ee34e69beb82d621f87bf81f5d4f135c4c44be0448550c7db728547244ef71fc
+  checksum: be1587f4875f3bb15e34e9fcce82eac2966daef4432c8d0046e61947fb9a1b95405284601bc7ce4869319249bc07c75100880191db6af11d1498931ac2a2f9ea
   languageName: node
   linkType: hard
 
