@@ -2410,7 +2410,7 @@ __metadata:
     "@types/node": ^18.17.12
     node-fetch: ^2.7.0
     typescript: ^5.2.2
-    zod: ^3.22.2
+    zod: ^3.23.5
   languageName: unknown
   linkType: soft
 
@@ -2580,7 +2580,7 @@ __metadata:
     typescript: ^5.2.2
     typescript-cp: ^0.1.9
     winston: ^3.10.0
-    zod: ^3.22.2
+    zod: ^3.23.5
   languageName: unknown
   linkType: soft
 
@@ -2620,7 +2620,7 @@ __metadata:
     logform: ^2.5.1
     typescript: ^5.2.2
     winston: ^3.10.0
-    zod: ^3.22.2
+    zod: ^3.23.5
   languageName: unknown
   linkType: soft
 
@@ -2642,7 +2642,7 @@ __metadata:
     ts-node: ^10.9.1
     typescript: ^5.2.2
     typescript-cp: ^0.1.9
-    zod: ^3.22.2
+    zod: ^3.23.5
   languageName: unknown
   linkType: soft
 
@@ -2751,7 +2751,7 @@ __metadata:
     pg-pool: ^3.6.1
     ts-node: ^10.9.1
     typescript: ^5.2.2
-    zod: ^3.22.2
+    zod: ^3.23.5
   languageName: unknown
   linkType: soft
 
@@ -2958,7 +2958,7 @@ __metadata:
     winston: ^3.10.0
     xml2js: ^0.6.2
     yargs-parser: ^21.1.1
-    zod: ^3.22.2
+    zod: ^3.23.5
   languageName: unknown
   linkType: soft
 
@@ -3055,7 +3055,7 @@ __metadata:
     typescript-cp: ^0.1.9
     uuid: ^9.0.0
     yargs-parser: ^21.1.1
-    zod: ^3.22.2
+    zod: ^3.23.5
   languageName: unknown
   linkType: soft
 
@@ -17063,10 +17063,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"zod@npm:^3.22.2":
-  version: 3.22.2
-  resolution: "zod@npm:3.22.2"
-  checksum: 231e2180c8eabb56e88680d80baff5cf6cbe6d64df3c44c50ebe52f73081ecd0229b1c7215b9552537f537a36d9e36afac2737ddd86dc14e3519bdbc777e82b9
+"zod@npm:^3.23.5":
+  version: 3.23.5
+  resolution: "zod@npm:3.23.5"
+  checksum: 4b83c93c4d43640b31eb4289efedb23f303a272c39f8b492ee4b2fec1a1da0de078db3786a2e6cc08d6803f03e842af2ae16b430c7f2e0fea3eba16b72a9db36
   languageName: node
   linkType: hard
 
