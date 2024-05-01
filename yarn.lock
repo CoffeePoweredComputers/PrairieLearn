@@ -1504,10 +1504,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-free@npm:^6.4.2":
-  version: 6.4.2
-  resolution: "@fortawesome/fontawesome-free@npm:6.4.2"
-  checksum: 14be8fbb8faa62473c01fe70590e39cdc76a0083b791537fd3d2215a790d2722d917242b1f7948e160876934a8d3823c764af9b8d4ef6dc1ecad55b585e5b776
+"@fortawesome/fontawesome-free@npm:^6.5.2":
+  version: 6.5.2
+  resolution: "@fortawesome/fontawesome-free@npm:6.5.2"
+  checksum: b77c1751721f355edc3bbc5c305d3ae87130156846511dfd3f66d5e218e246a7b3b5c57839f7b57729864b9d8b166e76aba2a11472a3e2f2ff597c24d39999df
   languageName: node
   linkType: hard
 
@@ -2765,7 +2765,7 @@ __metadata:
     "@aws-sdk/client-s3": ^3.400.0
     "@aws-sdk/client-sqs": ^3.398.0
     "@aws-sdk/lib-storage": ^3.400.0
-    "@fortawesome/fontawesome-free": ^6.4.2
+    "@fortawesome/fontawesome-free": ^6.5.2
     "@octokit/rest": ^19.0.13
     "@prairielearn/bind-mount": "workspace:^"
     "@prairielearn/browser-utils": "workspace:^"
