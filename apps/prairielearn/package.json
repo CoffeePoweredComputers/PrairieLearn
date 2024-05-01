@@ -74,7 +74,7 @@
     "date-fns-tz": "^2.0.0",
     "debug": "^4.3.4",
     "detect-mocha": "^0.1.0",
-    "dockerode": "^3.3.5",
+    "dockerode": "^4.0.2",
     "dompurify": "^3.0.5",
     "dropzone": "^5.9.3",
     "ejs": "^3.1.9",
