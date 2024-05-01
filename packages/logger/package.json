@@ -14,7 +14,7 @@
   "devDependencies": {
     "@prairielearn/tsconfig": "workspace:^",
     "@types/node": "^18.17.12",
-    "typescript": "^5.2.2"
+    "typescript": "^5.4.5"
   },
   "dependencies": {
     "logform": "^2.5.1",
