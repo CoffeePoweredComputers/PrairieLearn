@@ -94,7 +94,7 @@
     "he": "^1.2.0",
     "highlight.js": "^11.8.0",
     "htmx.org": "^1.9.5",
-    "http-proxy-middleware": "^2.0.6",
+    "http-proxy-middleware": "^3.0.0",
     "http-status": "^1.6.2",
     "isbinaryfile": "^5.0.0",
     "jju": "^1.4.0",
