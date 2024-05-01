@@ -24,6 +24,6 @@
   "dependencies": {
     "@aws-sdk/client-ecr": "^3.398.0",
     "@prairielearn/logger": "workspace:^",
-    "date-fns": "^2.30.0"
+    "date-fns": "^3.6.0"
   }
 }
