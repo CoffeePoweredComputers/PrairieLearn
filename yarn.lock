@@ -2491,7 +2491,7 @@ __metadata:
     "@types/mocha": ^10.0.1
     "@types/multipipe": ^3.0.1
     "@types/node": ^18.17.12
-    csv-stringify: ^6.4.2
+    csv-stringify: ^6.5.0
     mocha: ^10.2.0
     multipipe: ^4.0.0
     stream-transform: ^3.2.8
@@ -6767,10 +6767,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"csv-stringify@npm:^6.4.2":
-  version: 6.4.2
-  resolution: "csv-stringify@npm:6.4.2"
-  checksum: de8f394634e9745e0bc50d25312125204ca492a945f3e892af63cc340d371fdf653120c6bf2ff8ec2c9ce86b09e8455d7b5267cf91c7278e81a5f8c1b100105f
+"csv-stringify@npm:^6.5.0":
+  version: 6.5.0
+  resolution: "csv-stringify@npm:6.5.0"
+  checksum: c4009bc691b30314ff17cb2918d2f43dd42de5a1d3cd7889fd523f131d0e37d2a3c3c2601de93e8b71e2d8f3f52a9e4fb2a5f2ede9991e2895c1daa268694d78
   languageName: node
   linkType: hard
 
