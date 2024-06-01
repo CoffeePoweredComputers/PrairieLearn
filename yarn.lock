@@ -8938,9 +8938,28 @@ __metadata:
   languageName: node
   linkType: hard
 
+"fsevents@npm:~2.3.3":
+  version: 2.3.3
+  resolution: "fsevents@npm:2.3.3"
+  dependencies:
+    node-gyp: latest
+  checksum: 11e6ea6fea15e42461fc55b4b0e4a0a3c654faa567f1877dbd353f39156f69def97a69936d1746619d656c4b93de2238bf731f6085a03a50cabf287c9d024317
+  conditions: os=darwin
+  languageName: node
+  linkType: hard
+
 "fsevents@patch:fsevents@~2.3.2#~builtin<compat/fsevents>":
   version: 2.3.2
   resolution: "fsevents@patch:fsevents@npm%3A2.3.2#~builtin<compat/fsevents>::version=2.3.2&hash=df0bf1"
+  dependencies:
+    node-gyp: latest
+  conditions: os=darwin
+  languageName: node
+  linkType: hard
+
+"fsevents@patch:fsevents@~2.3.3#~builtin<compat/fsevents>":
+  version: 2.3.3
+  resolution: "fsevents@patch:fsevents@npm%3A2.3.3#~builtin<compat/fsevents>::version=2.3.3&hash=df0bf1"
   dependencies:
     node-gyp: latest
   conditions: os=darwin
@@ -13437,7 +13456,7 @@ __metadata:
     htmlhint: ^1.1.4
     jsdoc: ^4.0.2
     prettier: 3.0.3
-    pyright: ^1.1.324
+    pyright: ^1.1.365
     s3rver: ^3.7.1
     turbo: ^1.10.13
     typescript: ^5.2.2
@@ -13610,18 +13629,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pyright@npm:^1.1.324":
-  version: 1.1.324
-  resolution: "pyright@npm:1.1.324"
+"pyright@npm:^1.1.365":
+  version: 1.1.365
+  resolution: "pyright@npm:1.1.365"
   dependencies:
-    fsevents: ~2.3.2
+    fsevents: ~2.3.3
   dependenciesMeta:
     fsevents:
       optional: true
   bin:
     pyright: index.js
     pyright-langserver: langserver.index.js
-  checksum: b2cc28a4dd6631504f65380f86554e36db88f4a3810fe7898975efb0ac61f3212709c14759543a94335305866c0d2ec92a2a8e6c25d994305c057d81744d58e8
+  checksum: 8596dba5821df97612cbe5d4a3a2b64b6dd7c18d51f9aea9037805eef9c8430c1be1d85e6ce5e588cdcc8a4720382b7ae638724e5187adf7e45d603cc14d96dd
   languageName: node
   linkType: hard
 
