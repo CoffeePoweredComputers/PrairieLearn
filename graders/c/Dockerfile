@@ -1,4 +1,4 @@
-FROM ubuntu:24.04
+FROM ubuntu:25.10
 ARG CACHEBUST=2026-09-15-14-09-16
 
 LABEL maintainer="jonatan@yorku.ca"
